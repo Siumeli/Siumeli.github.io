@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siumeli - Linkit & Fortnite Kartat</title>
+    <!-- Ladataan Tailwind CSS CDN:stä -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Asetetaan Inter-fontti -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Ladataan Lucide-ikonit -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* CSS-muuttujat värien dynaamiseen hallintaan */
+        :root {
+            /* Globaalit värit */
+            --color-primary: #facc15; /* Kulta/Amber */
+            --color-primary-dark: #b45309; /* Tumma Kulta */
+            --color-background-dark: #0f172a; /* Tosi tumma sininen */
+            --color-card-bg: #1f2937; /* Tummanharmaa (kortit) */
+            --color-text-main: #f3f4f6; /* Vaalea teksti */
+            --color-text-sub: #9ca3af; /* Harmaa teksti */
+            
+            /* DYNAMISET VÄRIT */
+            --map-tag-bg: var(--color-primary);
+            --map-tag-text: var(--color-card-bg);
+            --pegi-bg: var(--color-primary);
+            --pegi-text: var(--color-card-bg);
+        }
+
+        /* Yleiset tausta- ja fonttiasetukset */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--color-card-bg) 0%, var(--color-background-dark) 100%); 
+            color: var(--color-text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        /* Yleiset animaatiot */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Korttien tyylit */
+        .card-base {
+            background-color: var(--color-card-bg);
+            border-radius: 1.5rem; /* Hieman isompi pyöristys */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        
+        /* Mainoskortin hover-efekti */
+        .ad-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Linkkipainikkeiden hover-efekti */
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Karttakortin hover-efekti */
+        .map-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Kuva- ja PEGI-tyylit */
+        .map-image-container {
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 kuvasuhde */
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .map-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        
+        /* Karttakoodi inputin tyyli */
+        .code-input {
+            border-color: var(--color-primary);
+        }
+
+        /* Karttatägit (Kategoriat) */
+        .map-tag {
+            background-color: var(--map-tag-bg);
+            color: var(--map-tag-text);
+        }
+
+        /* PEGI-ikoni */
+        .pegi-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--pegi-bg);
+            color: var(--pegi-text);
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container" class="w-full max-w-4xl space-y-12">
+        <!-- Pääotsikko ja profiili (Fade-In viive 1) -->
+        <header id="header-section" class="text-center fade-in" style="animation-delay: 0.1s;">
+            <div class="mb-4">
+                <!-- Profiilikuva kontti: Kehys käyttää CSS-muuttujia -->
+                <div class="inline-block p-1 rounded-full shadow-xl" style="background: linear-gradient(to right, var(--color-primary-dark), var(--color-primary));">
+                    <img id="profile-picture" src="" alt="Profiilikuva" 
+                            class="w-24 h-24 object-cover rounded-full bg-gray-700 border-4 border-gray-800/50" 
+                            onerror="this.onerror=null; this.src=FALLBACK_IMAGE_URL">
+                </div>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2">Siumeli</h1>
+            <p class="text-xl" style="color: var(--color-text-sub);">Content creator and Creative map builder.</p>
+        </header>
+
+        <!-- Sosiaalisen median linkit (Fade-In viive 2) -->
+        <section id="social-links-section" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 fade-in" style="animation-delay: 0.3s;">
+            <!-- Linkit luodaan JS:llä -->
+        </section>
+
+        <!-- Mainospaikat (Fade-In viive 3) -->
+        <section id="ad-slots-section" class="space-y-4 fade-in" style="animation-delay: 0.5s;">
+            <h2 class="text-3xl font-bold text-center text-white"></h2>
+            <div id="ads-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Mainoskortit luodaan tähän JS:llä -->
+            </div>
+        </section>
+
+        <!-- Fortnite Creative Mapit (Fade-In viive 4) -->
+        <section id="fortnite-maps-section" class="space-y-6 fade-in" style="animation-delay: 0.7s;">
+            <h2 class="text-3xl font-bold text-center text-white">My creative islands</h2>
+            <div id="maps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Karttakortit luodaan tähän JavaScriptillä -->
+            </div>
+        </section>
+
+        <!-- Footer / Alareuna -->
+        <footer class="fade-in pt-10 text-center text-gray-500 text-sm" style="animation-delay: 0.9s; color: var(--color-text-sub);">
+            <p>&copy; 2024 Siumeli. All rights reserved.</p>
+            <p>Made for the creator community.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ==============================================================================
+        // 🎨 VÄRI- JA TYYLI-ASETUKSET (MUOKKAA NÄITÄ)
+        // Muokkaa alla olevia arvoja hallitaksesi sivun kaikkia värejä.
+        // Tailwind CSS -luokat (esim. "bg-red-600") toimivat edelleen sosiaalisissa linkeissä.
+        // ==============================================================================
+        const COLORS = {
+            // Globaalit päävärit (vaikuttaa kehyksiin, tageihin ja tehosteisiin)
+            PRIMARY: '#facc15', // Kulta/Amber
+            PRIMARY_DARK: '#b45309', // Tumma Kulta (gradientin alkuun)
+            BACKGROUND_DARK: '#0f172a', // Taustan tummin väri
+            CARD_BG: '#1f2937', // Korttien (linkki, mainos, kartta) tausta
+            TEXT_MAIN: '#f3f4f6', // Pääotsikoiden ja sisällön teksti
+            TEXT_SUB: '#9ca3af', // Kuvausten ja pienemmän tekstin väri
+            
+            // Karttapainikkeen (Kopioi) värit (käytetään inline-tyyleissä)
+            BUTTON_BG: '#b45309', // Esim. bg-amber-700
+            BUTTON_HOVER: '#92400e', // Esim. hover:bg-amber-800
+        };
+
+        // Asettaa CSS-muuttujat dynaamisesti
+        document.documentElement.style.setProperty('--color-primary', COLORS.PRIMARY);
+        document.documentElement.style.setProperty('--color-primary-dark', COLORS.PRIMARY_DARK);
+        document.documentElement.style.setProperty('--color-background-dark', COLORS.BACKGROUND_DARK);
+        document.documentElement.style.setProperty('--color-card-bg', COLORS.CARD_BG);
+        document.documentElement.style.setProperty('--color-text-main', COLORS.TEXT_MAIN);
+        document.documentElement.style.setProperty('--color-text-sub', COLORS.TEXT_SUB);
+        
+        // ==============================================================================
+        // 🖼️ KUVA-ASETUKSET
+        // ==============================================================================
+        // Korvaa alla oleva URL oman kuvasi osoitteella
+        const PROFILE_IMAGE_URL = 'Images/neliö.png'; 
+        // Varakuva (fallback)
+        const FALLBACK_IMAGE_URL = 'https://placehold.co/100x100/4b5563/ffffff?text=Profiili'; 
+
+
+        // ==============================================================================
+        // 🔗 SOSIAALISEN MEDIAN LINKIT (10 KPL)
+        // VÄRI: Käytä suoraan Tailwind-luokkia (esim. "bg-red-600 hover:bg-red-700")
+        // ==============================================================================
+        const socialLinkData = [
+            { 
+                name: "YouTube", 
+                url: "https://www.youtube.com/@Siumeli", 
+                icon: "youtube", 
+                color: "bg-red-600 hover:bg-red-700", 
+                followers: "241",
+                label: "Subscribers" 
+            },
+            { 
+                name: "Discord", 
+                url: "https://discord.gg/zAV6B4mfK9", 
+                icon: "message-square", 
+                color: "bg-indigo-600 hover:bg-indigo-700", 
+                followers: "1",
+                label: "Members" 
+            },
+            { 
+                name: "TikTok", 
+                url: "https://www.tiktok.com/@siumeli_official", 
+                icon: "video", 
+                color: "bg-gray-800 hover:bg-gray-900", // TikTok-tyyli
+                followers: "5",
+                label: "Followers" 
+            },
+            { 
+                name: "Instagram", 
+                url: "https://www.instagram.com/siumeli_official/", 
+                icon: "instagram", 
+                color: "bg-pink-600 hover:bg-pink-700", 
+                followers: "27",
+                label: "Followers" 
+            },
+            { 
+                name: "Creator Page", 
+                url: "https://www.fortnite.com/@siumeli", 
+                icon: "gamepad", 
+                color: "bg-orange-500 hover:bg-orange-600", 
+                followers: "3",
+                label: "Favorites" 
+            },
+            // --- VIISI UUTTA LINKKIPAIKKAA ---
+            { 
+                name: "Twitch", 
+                url: "https://www.twitch.tv/siumeli_official", 
+                icon: "twitch", 
+                color: "bg-purple-600 hover:bg-purple-700", 
+                followers: "5",
+                label: "Followers" 
+            },
+            { 
+                name: "Facebook", 
+                url: "https://www.facebook.com/profile.php?id=61579651644433", 
+                icon: "facebook", 
+                color: "bg-blue-600 hover:bg-blue-700", 
+                followers: "0",
+                label: "Followers" 
+            },
+            { 
+                name: "Bug report", 
+                url: "https://forms.gle/Yqz3qcizxfr1ggUk6", 
+                icon: "pencil-line", 
+                color: "bg-green-600 hover:bg-green-700", 
+                followers: "bug",
+                label: "Report" 
+            },
+            { 
+                name: "Difficulty report", 
+                url: "https://forms.gle/icF59Lgk7EpkT14Z9", 
+                icon: "pencil-line", 
+                color: "bg-sky-500 hover:bg-sky-500", 
+                followers: "Hard/Easy",
+                label: "Report" 
+            }
+        ];
+
+        // ==============================================================================
+        // 📣 MAINOSPAIKKOJEN TIEDOT (MUOKKAA NÄITÄ)
+        // HUOM: Jos 'url' on null, kortti on vain infolaatikko. Jos siinä on linkki, se on klikattava.
+        // ==============================================================================
+        const adData = [
+            {
+                id: 1,
+                title: "Parkour tower shop -50%",
+                description: "Diamonds are on sale for -50%. Go get your cheap diamonds now to unlock VIP features. Island code: 1883-4439-9273",
+                image_url: "Images/Parkour tower diamond sale.png",
+                // TÄMÄ ON NYT KLIKATTAVA LINKKI
+                url: "https://www.fortnite.com/creative/island-codes/1883-4439-9273", 
+                color_class: "text-amber-400" 
+            },
+            {
+                id: 2,
+                title: "join Discord!",
+                description: "Join the Siumeli FN Discord server. Pelaa ja keskustele kanssamme!",
+                image_url: "Images/Mainos.png",
+                // TÄMÄ ON VAIN TIEDOTUSKORTTI
+                url: null, 
+                color_class: "text-indigo-400"
+            }
+        ];
+        
+        // ==============================================================================
+        // 🗺️ FORTNITE MAPPIEN TIEDOT (MUOKKAA NÄITÄ)
+        // ==============================================================================
+        const fortniteMapsData = [
+            {
+                id: 1,
+                name: "Siumeli's game lounge",
+                code: "9604-0091-5705",
+                description: "A secret base for all of Siumeli's Creative Islands. Can you put Siumeli's nameplate back together?",
+                categories: ["hub", "puzzle", "artistic", "peaceful"],
+                image_url: "Images/Siumeli's game lounge thumbnail 4.png", 
+                pegi_rating: "7" 
+            },
+            {
+                id: 2,
+                name: "Parkour tower (version 0.8)",
+                code: "1883-4439-9273",
+                description: "Can you climb to the finish line? Take on the challenge alone or with a friend. See who is truly the better parkourer.",
+                categories: ["parkour", "secrets", "difficulty: hard"],
+                image_url: "Images/Parkour tower thumbnail 2.png", 
+                pegi_rating: "3" 
+            },
+            {
+                id: 3,
+                name: "1 vs 1 box fight",
+                code: "0771-6009-6954",
+                description: "Challenge your friend to a 1 vs 1 game where both have the same weapons at all times and no healing items.",
+                categories: ["1v1", "boxfight", "building", "rounds"],
+                image_url: "Images/1 vs 1 box fight thumbnail 2.png", 
+                pegi_rating: "12" 
+            },
+            {
+                id: 4,
+                name: "Legend of the mythic dragon egg",
+                code: "7143-2214-6017",
+                description: "Dive into the story of the Mythical Dragon Egg.",
+                categories: ["story", "boss battle", "solo"],
+                image_url: "Images/Legend of... thumbnail.png", 
+                pegi_rating: "12" 
+            },
+            {
+                id: 5,
+                name: "⬛Megazone Zone Wars🌀",
+                code: "1310-9693-2538",
+                description: "A four-player all-against-all game. Choose your hero and defeat the others.",
+                categories: ["classes", "fighting", "rounds", "zonewars"],
+                image_url: "Images/Megazone (no building) thumbnail.png", 
+                pegi_rating: "12" 
+            },
+        ];
+
+        // ==============================================================================
+        // ⚙️ FUNKTIOT SISÄLLÖN LUOMISEEN
+        // ==============================================================================
+
+        /**
+         * Funktio sosiaalisen median linkin luomiseen.
+         */
+        function createSocialLink(link) {
+            return `
+                <a href="${link.url}" target="_blank" 
+                    class="social-link p-3 bg-opacity-90 ${link.color} text-white font-bold rounded-2xl shadow-xl 
+                            flex flex-col items-center justify-center transition duration-300 text-center">
+                    <i data-lucide="${link.icon}" class="w-6 h-6 mb-1"></i>
+                    <span class="text-sm">${link.name}</span>
+                    <span class="text-xs font-normal opacity-80 mt-1">${link.label}: ${link.followers}</span>
+                </a>
+            `;
+        }
+
+        /**
+         * Funktio Mainoskortin luomiseen. Nyt huomioi 'url'-kentän.
+         */
+        function createAdCard(ad) {
+            // Määritellään placeholder, jos kuva puuttuu
+            const placeholderText = encodeURIComponent(ad.title || ad.description.substring(0, 30));
+            const placeholderUrl = `https://placehold.co/600x224/374151/ffffff?text=${placeholderText}`;
+            
+            // Jos URL on olemassa, käytetään <a>-elementtiä, muuten pelkkää <div>-elementtiä
+            const Tag = ad.url ? 'a' : 'div';
+            const linkProps = ad.url ? `href="${ad.url}" target="_blank"` : '';
+            const cursorClass = ad.url ? 'cursor-pointer' : 'cursor-default';
+
+            return `
+                <${Tag} ${linkProps} class="ad-card card-base ${cursorClass} flex flex-col transition duration-300">
+                    <div class="relative h-48 sm:h-56">
+                        <img src="${ad.image_url}" alt="${ad.title}" 
+                             class="w-full h-full object-cover rounded-t-2xl"
+                             onerror="this.onerror=null; this.src='${placeholderUrl}';">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-end p-4 rounded-t-2xl">
+                            ${ad.title ? `<h3 class="text-xl font-bold ${ad.color_class} drop-shadow-lg">${ad.title}</h3>` : ''}
+                        </div>
+                    </div>
+                    <div class="p-4 flex-grow">
+                        <p class="text-sm" style="color: var(--color-text-sub);">${ad.description}</p>
+                    </div>
+                </${Tag}>
+            `;
+        }
+
+        /**
+         * Funktio Fortnite-karttakortin luomiseen.
+         */
+        function createMapCard(map) {
+            const categoriesHtml = map.categories.map(cat =>
+                `<span class="inline-block map-tag text-xs font-semibold px-2 py-0.5 rounded-full tracking-wider shadow-sm">${cat}</span>`
+            ).join('');
+
+            return `
+                <div class="map-card card-base p-4 flex flex-col h-full fade-in" style="animation-delay: ${0.7 + (map.id * 0.15)}s;">
+                    <div class="map-image-container">
+                        <img src="${map.image_url}" alt="Kuva kartasta ${map.name}" 
+                             class="map-image"
+                             onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/1f2937/facc15?text=Karttakuva+ei+l%C3%B6ytynyt';">
+                        <!-- PEGI-ikärajan neliö käyttää nyt CSS-muuttujia -->
+                        ${map.pegi_rating ? `<div class="pegi-icon">${map.pegi_rating}</div>` : ''}
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">${map.name}</h3>
+                    
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        ${categoriesHtml}
+                    </div>
+                    
+                    <p class="mb-4 flex-grow text-sm" style="color: var(--color-text-sub);">${map.description}</p>
+
+                    <div class="mt-auto pt-2 border-t border-gray-700">
+                        <div class="text-sm mb-1" style="color: var(--color-text-sub);">Karttakoodi:</div>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" value="${map.code}" readonly id="code-${map.id}"
+                                class="flex-grow bg-gray-700 font-mono text-center text-xs py-1 px-2 rounded-lg border-2 code-input select-all"
+                                onclick="this.select(); document.execCommand('copy'); copyCode('code-${map.id}', 'btn-copy-${map.id}', '${map.code}')">
+                            
+                            <button id="btn-copy-${map.id}"
+                                style="background-color: ${COLORS.BUTTON_BG};"
+                                class="copy-button px-2 py-1 text-xs rounded-lg text-white font-bold transition duration-200 focus:ring-4 focus:ring-amber-300/50 whitespace-nowrap shadow-md"
+                                onmouseover="this.style.backgroundColor='${COLORS.BUTTON_HOVER}'"
+                                onmouseout="this.style.backgroundColor='${COLORS.BUTTON_BG}'"
+                                onclick="copyCode('code-${map.id}', 'btn-copy-${map.id}', '${map.code}')">
+                                Kopioi
+                            </button>
+                        </div>
+                        <div id="message-${map.id}" class="text-xs mt-1 h-4 opacity-0 transition-opacity duration-300 text-center" style="color: var(--color-primary);"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Kopioi koodin ja näyttää ilmoituksen.
+         */
+        function copyCode(inputId, buttonId, code) {
+            const input = document.getElementById(inputId);
+            const button = document.getElementById(buttonId);
+            const mapId = inputId.split('-')[1];
+            const messageElement = document.getElementById(`message-${mapId}`);
+
+            // Kopioidaan teksti
+            input.select();
+            input.setSelectionRange(0, 99999); 
+            document.execCommand('copy'); 
+
+            // Näytetään ilmoitus
+            messageElement.textContent = `Koodi ${code} kopioitu!`;
+            messageElement.style.opacity = '1';
+
+            // Palautetaan ilmoitus piiloon hetken kuluttua
+            setTimeout(() => {
+                messageElement.style.opacity = '0';
+            }, 1500);
+
+            // Annetaan painikkeelle hetkeksi visuaalinen palaute
+            button.textContent = 'Valmis!';
+            setTimeout(() => {
+                button.textContent = 'Kopioi';
+            }, 1000);
+        }
+
+        // ==============================================================================
+        // 🚀 KÄYNNISTYS
+        // ==============================================================================
+        window.onload = function() {
+            const socialLinksSection = document.getElementById('social-links-section');
+            const mapsGrid = document.getElementById('maps-grid');
+            const adsGrid = document.getElementById('ads-grid');
+            const profilePicture = document.getElementById('profile-picture');
+            
+            // 1. Asetetaan profiilikuva URL:stä
+            profilePicture.src = PROFILE_IMAGE_URL;
+
+            // 2. Lisätään sosiaalisen median linkit
+            socialLinkData.forEach(link => {
+                socialLinksSection.innerHTML += createSocialLink(link);
+            });
+
+            // 3. Lisätään Fortnite mapit sivuille
+            fortniteMapsData.forEach(map => {
+                mapsGrid.innerHTML += createMapCard(map);
+            });
+            
+            // 4. Lisätään mainokset sivuille
+            adData.forEach(ad => {
+                adsGrid.innerHTML += createAdCard(ad);
+            });
+
+            // Vaihdetaan Lucide-ikonit SVG-muotoon
+            lucide.createIcons();
+
+            // Varmistetaan, että kaikki fade-in animaatiot käynnistyvät
+            document.querySelectorAll('.fade-in').forEach(el => {
+                void el.offsetWidth;
+                el.style.animationPlayState = 'running';
+            });
+        };
+    </script>
+</body>
+</html>
