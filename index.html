@@ -176,7 +176,7 @@
 
         <!-- Footer / Alareuna -->
         <footer class="fade-in pt-10 text-center text-gray-500 text-sm" style="animation-delay: 0.9s; color: var(--color-text-sub);">
-            <p>&copy; 2024 Siumeli. All rights reserved.</p>
+            <p>&copy; 2025 Siumeli. All rights reserved.</p>
             <p>Made for the creator community.</p>
         </footer>
     </div>
@@ -228,7 +228,7 @@
                 url: "https://www.youtube.com/@Siumeli", 
                 icon: "youtube", 
                 color: "bg-red-600 hover:bg-red-700", 
-                followers: "241",
+                followers: "243",
                 label: "Subscribers" 
             },
             { 
@@ -305,9 +305,9 @@
         const adData = [
             {
                 id: 1,
-                title: "Parkour tower shop -50%",
-                description: "Diamonds are on sale for -50%. Go get your cheap diamonds now to unlock VIP features. Island code: 1883-4439-9273",
-                image_url: "Images/Parkour tower diamond sale.png",
+                title: "Parkour tower (version 0.8)",
+                description: "Go test and see if you can beat the game. Island code: 1883-4439-9273",
+                image_url: "Images/Parkour tower thumbnail 2.png",
                 // TÄMÄ ON NYT KLIKATTAVA LINKKI
                 url: "https://www.fortnite.com/creative/island-codes/1883-4439-9273", 
                 color_class: "text-amber-400" 
@@ -318,7 +318,7 @@
                 description: "Join the Siumeli FN Discord server. Pelaa ja keskustele kanssamme!",
                 image_url: "Images/Mainos.png",
                 // TÄMÄ ON VAIN TIEDOTUSKORTTI
-                url: null, 
+                url: "https://discord.gg/zAV6B4mfK9", 
                 color_class: "text-indigo-400"
             }
         ];
@@ -450,7 +450,7 @@
                     <p class="mb-4 flex-grow text-sm" style="color: var(--color-text-sub);">${map.description}</p>
 
                     <div class="mt-auto pt-2 border-t border-gray-700">
-                        <div class="text-sm mb-1" style="color: var(--color-text-sub);">Karttakoodi:</div>
+                        <div class="text-sm mb-1" style="color: var(--color-text-sub);">Island code:</div>
                         <div class="flex items-center space-x-2">
                             <input type="text" value="${map.code}" readonly id="code-${map.id}"
                                 class="flex-grow bg-gray-700 font-mono text-center text-xs py-1 px-2 rounded-lg border-2 code-input select-all"
@@ -462,7 +462,7 @@
                                 onmouseover="this.style.backgroundColor='${COLORS.BUTTON_HOVER}'"
                                 onmouseout="this.style.backgroundColor='${COLORS.BUTTON_BG}'"
                                 onclick="copyCode('code-${map.id}', 'btn-copy-${map.id}', '${map.code}')">
-                                Kopioi
+                                Copy
                             </button>
                         </div>
                         <div id="message-${map.id}" class="text-xs mt-1 h-4 opacity-0 transition-opacity duration-300 text-center" style="color: var(--color-primary);"></div>
@@ -483,10 +483,10 @@
             // Kopioidaan teksti
             input.select();
             input.setSelectionRange(0, 99999); 
-            document.execCommand('copy'); 
+            document.execCommand('Copy'); 
 
             // Näytetään ilmoitus
-            messageElement.textContent = `Koodi ${code} kopioitu!`;
+            messageElement.textContent = `Code ${code} copied to your clipboard!`;
             messageElement.style.opacity = '1';
 
             // Palautetaan ilmoitus piiloon hetken kuluttua
@@ -495,9 +495,9 @@
             }, 1500);
 
             // Annetaan painikkeelle hetkeksi visuaalinen palaute
-            button.textContent = 'Valmis!';
+            button.textContent = 'Ready!';
             setTimeout(() => {
-                button.textContent = 'Kopioi';
+                button.textContent = 'Copy';
             }, 1000);
         }
 
