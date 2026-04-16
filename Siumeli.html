@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #5B0E14;
+            color: #F1E194;
+        }
+        .glass-effect {
+            background: #530000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .map-card {
+            transition: all 0.3s ease;
+        }
+        .map-card:hover {
+            transform: translateY(-5px);
+        }
+        .social-btn {
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        .social-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-50 glass-effect shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent uppercase italic">
+                Siumeli
+            </div>
+            <nav class="flex items-center space-x-4">
+                <button onclick="changeLanguage('fi')" id="btn-fi" class="px-3 py-1 rounded bg-blue-600 text-sm font-medium hover:bg-blue-500 transition">FI</button>
+                <button onclick="changeLanguage('en')" id="btn-en" class="px-3 py-1 rounded bg-slate-700 text-sm font-medium hover:bg-slate-600 transition">EN</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
+        <section class="text-center mb-16">
+            <div class="relative inline-block">
+                <div class="w-32 h-32 rounded-full border-4 border-yellow-600 overflow-hidden mx-auto shadow-2xl">
+                    <img src="https://communities.epicgames.com/api/community/image/3b237838-f251-46f4-bc79-d000cf72c53a?width=96&height=96&resizingType=fit" alt="Profile" class="w-full h-full object-cover bg-slate-800">
+                </div>
+                <div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-2 border-slate-900 rounded-full"></div>
+            </div>
+            <h1 class="text-4xl font-extrabold mt-6 mb-2" id="name">Siumeli</h1>
+            <p class="text-yellow-100/70 max-w-lg mx-auto mb-8" data-key="bio">
+                Tervetuloa sivulleni! Olen sisällöntuottaja ja Fortnite-karttojen rakentaja.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
+                <a href="https://www.youtube.com/@Siumeli" class="social-btn px-6 py-2.5 bg-[#FF0000] text-white rounded-xl shadow-lg"><span>YouTube</span></a>
+                <a href="https://www.twitch.tv/siumeli_official" class="social-btn px-6 py-2.5 bg-[#9146FF] text-white rounded-xl shadow-lg"><span>Twitch</span></a>
+                <a href="https://www.instagram.com/siumeli_official/" class="social-btn px-6 py-2.5 bg-[#EE1D52] text-white rounded-xl shadow-lg border border-white/20"><span>Instagram</span></a>
+                <a href="https://www.tiktok.com/@siumeli_official" class="social-btn px-6 py-2.5 bg-gradient-to-r from-[#000000] to-[#000000] text-white rounded-xl shadow-lg"><span>TikTok</span></a>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="glass-effect p-6 rounded-2xl flex flex-col md:flex-row gap-4 items-center">
+                <div class="w-full md:w-1/3 aspect-video bg-slate-800 rounded-lg overflow-hidden">
+                    <img src="https://cdn-0001.qstv.on.epicgames.com/tbFLsCHbQVHCeJNUMH/image/landscape_comp_s.jpeg" alt="Ad 1" class="w-full h-full object-cover opacity-80">
+                </div>
+                <div class="flex-grow text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-2" data-key="ad1-title">DECK WARS 2 tulossa tänä vuonna!</h3>
+                    <p class="text-sm text-yellow-100/60 mb-4" data-key="ad1-desc">Hups... Tätä ei olisi ehkä pitänyt sanoa vielä.</p>
+                    <a href="https://discord.gg/ZztkudDyS5" class="inline-block px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-semibold transition uppercase tracking-wider" data-key="btn-learn">Liity Discordiin</a>
+                </div>
+            </div>
+            <div class="glass-effect p-6 rounded-2xl flex flex-col md:flex-row gap-4 items-center">
+                <div class="w-full md:w-1/3 aspect-video bg-slate-800 rounded-lg overflow-hidden">
+                    <img src="https://cdn-0001.qstv.on.epicgames.com/ZlbuvjGLryJvmhIjbb/image/landscape_comp_s.jpeg" alt="Ad 2" class="w-full h-full object-cover opacity-80">
+                </div>
+                <div class="flex-grow text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-2" data-key="ad2-title">Parkour Tower</h3>
+                    <p class="text-sm text-yellow-100/60 mb-4" data-key="ad2-desc">Pelaa Parkour Tower jo tänään ja haasta kaverisi parkouriin joka rankaisee jos tiput!</p>
+                    <a href="https://www.fortnite.com/@siumeli/1883-4439-9273" class="inline-block px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-semibold transition uppercase tracking-wider" data-key="btn-watch">Pelaa</a>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="text-2xl font-bold mb-8 border-l-4 border-yellow-500 pl-4" data-key="maps-title">Fortnite Creative Mapit</h2>
+        <div id="maps-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <p class="text-yellow-100/50 italic">Ladataan karttoja...</p>
+        </div>
+
+        <section class="flex flex-col sm:flex-row justify-center gap-6 mb-8">
+            <a href="#" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl shadow-xl transition flex items-center justify-center gap-2 group">
+                <span data-key="cta-shop">Anna palautetta mapista</span>
+            </a>
+            <a href="https://discord.gg/ZztkudDyS5" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl shadow-xl border border-white/10 transition flex items-center justify-center gap-2 group">
+                <span data-key="cta-discord">Liity Discordiin</span>
+            </a>
+        </section>
+    </main>
+
+    <footer class="bg-black/40 border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <div class="text-xl font-bold text-yellow-500 mb-2 uppercase italic tracking-tighter">SIUMELI</div>
+                <p class="text-yellow-100/40 text-sm" data-key="footer-text">© 2026 Sisällöntuottaja. Kaikki oikeudet pidätetään.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="https://www.youtube.com/@Siumeli" class="text-yellow-100/40 hover:text-white transition">YouTube</a>
+                <a href="https://www.twitch.tv/siumeli_official" class="text-yellow-100/40 hover:text-white transition">Twitch</a>
+                <a href="https://www.instagram.com/siumeli_official/" class="text-yellow-100/40 hover:text-white transition">Instagram</a>
+                <a href="https://www.tiktok.com/@siumeli_official" class="text-yellow-100/40 hover:text-white transition">TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-full shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none font-semibold z-[100]">
+        Koodi kopioitu!
+    </div>
+
+    <script>
+        let currentLang = 'fi';
+        let mapsData = [];
+
+        // Käännökset käyttöliittymän teksteille
+        const translations = {
+            fi: {
+                bio: "Tervetuloa sivulleni! Olen sisällöntuottaja ja Fortnite-karttojen rakentaja.",
+                ad1_title: "DECK WARS 2 tulossa tänä vuonna!",
+                ad1_desc: "Hups... Tätä ei olisi ehkä pitänyt sanoa vielä.",
+                ad2_title: "Parkour Tower",
+                ad2_desc: "Pelaa Parkour Tower jo tänään ja haasta kaverisi parkouriin joka rankaisee jos tiput!",
+                btn_learn: "Liity Discordiin",
+                btn_watch: "Pelaa",
+                maps_title: "Fortnite Creative Mapit",
+                footer_text: "© 2026 Sisällöntuottaja. Kaikki oikeudet pidätetään.",
+                toast: "Koodi kopioitu leikepöydälle!",
+                cta_shop: "Anna palautetta mapista",
+                cta_discord: "Liity Discordiin"
+            },
+            en: {
+                bio: "Welcome to my page! I am a content creator and Fortnite map builder.",
+                ad1_title: "DECK WARS 2 coming this year!",
+                ad1_desc: "Oops... Maybe I shouldn't have said this yet.",
+                ad2_title: "Parkour Tower",
+                ad2_desc: "Play Parkour Tower today and challenge your friends to a parkour that punishes you if you fall!",
+                btn_learn: "Join Discord",
+                btn_watch: "Play",
+                maps_title: "Fortnite Creative Maps",
+                footer_text: "© 2026 Content Creator. All rights reserved.",
+                toast: "Code copied to clipboard!",
+                cta_shop: "Give feedback about the map",
+                cta_discord: "Join Discord"
+            }
+        };
+
+        // 1. HAETAAN TIEDOT JSON-TIEDOSTOSTA
+        async function fetchMaps() {
+            try {
+                const response = await fetch('Siumeli.json');
+                if (!response.ok) throw new Error('JSON-tiedostoa ei voitu ladata.');
+                mapsData = await response.json();
+                renderMaps();
+            } catch (error) {
+                console.error("Virhe:", error);
+                document.getElementById('maps-container').innerHTML = `<p class="text-red-400">Virhe karttojen latauksessa. Varmista että 'maps.json' on olemassa.</p>`;
+            }
+        }
+
+        // 2. PIIRRETÄÄN KARTAT NÄYTÖLLE
+        function renderMaps() {
+            const container = document.getElementById('maps-container');
+            container.innerHTML = '';
+
+            mapsData.forEach(map => {
+                const description = currentLang === 'fi' ? map.desc_fi : map.desc_en;
+                
+                const tagsHtml = map.tags.map(tag => {
+                    const colors = {
+                        blue: 'bg-blue-900/50 text-blue-300 border-blue-700',
+                        purple: 'bg-purple-900/50 text-purple-300 border-purple-700',
+                        green: 'bg-green-900/50 text-green-300 border-green-700',
+                        orange: 'bg-orange-900/50 text-orange-300 border-orange-700'
+                    };
+                    const colorClass = colors[tag.type] || colors.blue;
+                    return `<span class="${colorClass} text-[10px] px-2 py-0.5 rounded-full border">${tag.text}</span>`;
+                }).join('');
+
+                const card = `
+                    <div class="map-card glass-effect rounded-2xl overflow-hidden flex flex-col">
+                        <div class="h-48 bg-slate-800 relative">
+                            <img src="${map.image}" alt="${map.title}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-black/60 px-2 py-1 rounded text-xs font-bold">PEGI ${map.pegi}</span>
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <div class="flex flex-wrap gap-2 mb-3">${tagsHtml}</div>
+                            <h3 class="text-xl font-bold mb-2">${map.title}</h3>
+                            <p class="text-sm text-yellow-100/60 mb-4">${description}</p>
+                        </div>
+                        <div class="p-4 bg-black/20 border-t border-white/5 flex items-center justify-between">
+                            <code class="text-yellow-400 font-mono text-sm">${map.code}</code>
+                            <button onclick="copyCode('${map.code}')" class="p-2 hover:bg-white/10 rounded-lg transition" title="Kopioi koodi">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // 3. KIELEN VAIHTO
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Päivitä staattiset tekstit
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key').replace(/-/g, '_');
+                if (translations[lang][key]) {
+                    elem.textContent = translations[lang][key];
+                }
+            });
+
+            // Päivitä nappien tyylit
+            document.getElementById('btn-fi').className = lang === 'fi' ? "px-3 py-1 rounded bg-blue-600 text-sm font-medium transition" : "px-3 py-1 rounded bg-slate-700 text-sm font-medium transition";
+            document.getElementById('btn-en').className = lang === 'en' ? "px-3 py-1 rounded bg-blue-600 text-sm font-medium transition" : "px-3 py-1 rounded bg-slate-700 text-sm font-medium transition";
+            
+            // Päivitä dynaamiset kartat
+            renderMaps();
+        }
+
+        // 4. KOODIN KOPIOINTI
+        async function copyCode(code) {
+            try {
+                await navigator.clipboard.writeText(code);
+                showToast();
+            } catch (err) {
+                // Fallback
+                const temp = document.createElement("input");
+                temp.value = code;
+                document.body.appendChild(temp);
+                temp.select();
+                document.execCommand("copy");
+                document.body.removeChild(temp);
+                showToast();
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.textContent = translations[currentLang].toast;
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+
+        // Aloitus
+        fetchMaps();
+    </script>
+</body>
+</html>

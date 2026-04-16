@@ -1,0 +1,105 @@
+[
+  {
+    "id": "1",
+    "title": "Siumeli's game lounge",
+    "code": "9604-0091-5705",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/wzIMQfxXjmPVFzvoSr/image/landscape_comp_s.jpeg",
+    "pegi": "7",
+    "tags": [
+      { "text": "HUB", "type": "blue" },
+      { "text": "PUZZLE", "type": "purple" },
+      { "text": "ARTISTIC", "type": "blue" },
+      { "text": "PEACEFUL", "type": "blue" }
+    ],
+    "desc_fi": "Salainen tukikohta kaikille Siumelin Creative saarille. Pystytkö koota Siumelin nimikyltin takaisin?",
+    "desc_en": "A secret base for all of Siumeli's Creative Islands. Can you put Siumeli's nameplate back together?"
+  },
+  {
+    "id": "2",
+    "title": "Deck Wars",
+    "code": "6454-3870-2252",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/tbFLsCHbQVHCeJNUMH/image/landscape_comp_s.jpeg",
+    "pegi": "12",
+    "tags": [
+      { "text": "ROUNDS", "type": "blue" },
+      { "text": "STRATEGY", "type": "purple" },
+      { "text": "BATTLE", "type": "orange" },
+      { "text": "4V4", "type": "orange" }
+    ],
+    "desc_fi": "-4 vs 4⚔️ -Satunnaiset maat👤 -Sulkeutuva myrsky🌩️ -Hauskaa kavereiden kanssa👍 -Versio 1.1",
+    "desc_en": "-4 vs 4⚔️ -Random suits👤 -Closing storm🌩️ -Fun with friends👍 -Version 1.1"
+  },
+  {
+    "id": "3",
+    "title": "Legend of the mythic dragon egg",
+    "code": "7143-2214-6017",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/hdPfPRsfQSUEIFyuJf/image/landscape_comp_s.jpeg",
+    "pegi": "12",
+    "tags": [
+      { "text": "STORY", "type": "purple" },
+      { "text": "BOSS BATTLE", "type": "orange" },
+      { "text": "SOLO", "type": "blue" }
+    ],
+    "desc_fi": "Sukella myyttisen lohikäärmeenmunan tarinaan.",
+    "desc_en": "Dive into the story of the Mythical Dragon Egg."
+  },
+  {
+    "id": "4",
+    "title": "⬛Megazone Zone Wars🌀",
+    "code": "1310-9693-2538",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/JujYSoXWOGVRywuDXL/image/landscape_comp.jpeg",
+    "pegi": "12",
+    "tags": [
+      { "text": "CLASSES", "type": "purple" },
+      { "text": "FIGHTING", "type": "orange" },
+      { "text": "ROUNDS", "type": "blue" },
+      { "text": "ZONEWARS", "type": "orange" }
+    ],
+    "desc_fi": "Neljän pelaajan kaikki kaikkia vastaan ​​-peli. Valitse sankarisi ja kukista muut.",
+    "desc_en": "A four-player all-against-all game. Choose your hero and defeat the others."
+  },
+  {
+    "id": "5",
+    "title": "1 vs 1 box fight",
+    "code": "0771-6009-6954",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/QKtSunLKfBUKyrOsIl/image/landscape_comp.jpeg",
+    "pegi": "12",
+    "tags": [
+      { "text": "1V1", "type": "orange" },
+      { "text": "BOXFIGHT", "type": "orange" },
+      { "text": "BUILDING", "type": "purple" },
+      { "text": "ROUNDS", "type": "blue" }
+    ],
+    "desc_fi": "Haasta ystäväsi 1 vs 1 -peliin, jossa molemmilla on aina samat aseet eikä parannusesineitä.",
+    "desc_en": "Challenge your friend to a 1 vs 1 game where both have the same weapons at all times and no healing items."
+  },
+  {
+    "id": "6",
+    "title": "Parkour tower",
+    "code": "1883-4439-9273",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/ZlbuvjGLryJvmhIjbb/image/landscape_comp.jpeg",
+    "pegi": "3",
+    "tags": [
+      { "text": "PARKOUR", "type": "purple" },
+      { "text": "SECRETS", "type": "blue" },
+      { "text": "DIFFICULTY: HARD", "type": "green" }
+    ],
+    "desc_fi": "Pystytkö kiipeämään maaliviivalle? Ota haaste vastaan ​​yksin tai ystävän kanssa. Katso, kuka on todella parempi parkouraaja.",
+    "desc_en": "Can you climb to the finish line? Take on the challenge alone or with a friend. See who is truly the better parkourer."
+  },
+  {
+    "id": "7",
+    "title": "City Slide",
+    "code": "6174-3650-4721",
+    "image": "https://cdn-0001.qstv.on.epicgames.com/XDSialojdcHnqgTGev/image/landscape_comp.jpeg",
+    "pegi": "3",
+    "tags": [
+      { "text": "MINIGAME", "type": "blue" },
+      { "text": "JUST FOR FUN", "type": "purple" },
+      { "text": "PARKOUR", "type": "blue" },
+      { "text": "CASUAL", "type": "blue" }
+    ],
+    "desc_fi": "Liu'u ikuista köynnöstä pitkin kaupungin valoissa",
+    "desc_en": "Slide along the eternal vine in the city lights"
+  }
+]
